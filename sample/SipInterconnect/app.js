@@ -48,11 +48,15 @@ app.get('/', function (req, res, next) {
 app.post('/sip/start', function (req, res, next) {
   var sessionId = req.body.sessionId;
   var apiKey = req.body.apiKey;
+  console.log("----------------");
   console.log(">>> SIP URI:", config.sipUri);
   console.log(">>> SIP sipUsername:", config.sipUsername);
   console.log(">>> SIP sipPassword:", config.sipPassword);
+  console.log(">>> SIP sipHeaders:", config.sipHeaders);
   console.log(">>> sessionId:", sessionId);
   console.log(">>> apiKey:", apiKey);
+  console.log(">>> Token:", sipToken);
+  console.log("----------------");
 
   opentok.dial(sessionId, sipToken, config.sipUri, {
     auth: {
