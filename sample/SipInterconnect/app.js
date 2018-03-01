@@ -44,6 +44,35 @@ app.get('/', function (req, res, next) {
   });
 });
 
+// -------- JWT generation -------------
+// import jwt //# See https://pypi.python.org/pypi/PyJWT
+// import time
+// import uuid
+// print jwt.encode({
+//   "iss": "my-OpenTok-account-API-key",
+//   "iat": int(time.time()),
+//   "exp": int(time.time()) + 180,
+//   "ist": "project",
+//   "jti": uuid.uuid4()
+// },
+//   'my-OpenTok-API-secret',
+//   algorithm = 'HS256')
+
+var jwt = require('jsonwebtoken');
+
+function generateJWT(config) {
+  var currentTime = Math.floor(new Date() / 1000);
+  var token = jwt.sign({
+    iss: config.apiKey,
+    ist: 'project',
+    iat: currentTime,
+    exp: currentTime + 100000
+  }, config.apiSecret);
+
+  return token;
+};
+// -------- JWT generation -------------
+
 /* POST to start Wormhole SIP call. */
 app.post('/sip/start', function (req, res, next) {
   var sessionId = req.body.sessionId;
@@ -77,3 +106,7 @@ app.post('/sip/start', function (req, res, next) {
 var port = process.env.PORT || 3000;
 app.listen(port);
 console.log('OpenTok SIP app is listening on port: ' + port);
+
+console.log("----------------");
+console.log(">>> JWT: ", generateJWT(config));
+console.log("----------------");
