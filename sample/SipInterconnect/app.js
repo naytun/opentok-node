@@ -72,4 +72,4 @@ app.post('/sip/start', function (req, res, next) {
 
 var port = process.env.PORT || 3000;
 app.listen(port);
-console.log('Sample app is listening on port ' + port);
+console.log('OpenTok SIP app is listening on port: ' + port);
